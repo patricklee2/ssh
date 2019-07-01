@@ -39,4 +39,6 @@ ENV PATH ${PATH}:/home/site/wwwroot
 
 WORKDIR /home/site/wwwroot
 
+VOLUME /etc/ssh
+
 ENTRYPOINT ["/opt/startup/init_container.sh"]
