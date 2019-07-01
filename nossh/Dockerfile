@@ -14,8 +14,9 @@ RUN npm install -g pm2 \
 COPY startup /opt/startup
 COPY hostingstart.html /opt/startup
 
-# configure startup
-RUN mkdir -p /tmp
+
+RUN cd /opt/startup \
+   && npm install 
 
 ENV PORT 8080
 ENV SSH_PORT 2222
