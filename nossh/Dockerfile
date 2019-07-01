@@ -15,7 +15,8 @@ COPY startup /opt/startup
 COPY hostingstart.html /opt/startup
 
 
-RUN cd /opt/startup \
+RUN chmod -R +x /opt/startup \
+   && cd /opt/startup \
    && npm install 
 
 ENV PORT 8080
