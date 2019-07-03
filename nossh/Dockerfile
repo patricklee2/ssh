@@ -21,8 +21,7 @@ RUN rm -f /etc/ssh/sshd_config \
    && npm install 
 
 ENV PORT 8080
-ENV SSH_PORT 2222
-EXPOSE 2222 8080
+EXPOSE 8080
 
 ENV PM2HOME /pm2home
 
@@ -31,22 +30,5 @@ ENV WEBSITE_INSTANCE_ID localInstance
 ENV PATH ${PATH}:/home/site/wwwroot
 
 WORKDIR /home/site/wwwroot
-
-RUN groupadd sshd \
-   && useradd -g sshd -d / sshd \
-   && apt-get update -y \
-   && apt-get upgrade -y openssl \
-   && cd /etc/ssh \
-   && wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz \
-   && tar -xzf openssh-8.0p1.tar.gz \
-   && cd openssh-8.0p1/ \
-   && ./configure --prefix=/etc/ssh --sysconfdir=/etc/ssh --with-pid-dir=/etc/ssh --with-privsep-path=/etc/ssh \
-   && make \
-   && make install
-
-COPY sshd_config /etc/ssh/
-COPY start_sshd.sh /etc/ssh/
-
-VOLUME /etc/ssh
 
 ENTRYPOINT ["/opt/startup/init_container.sh"]
