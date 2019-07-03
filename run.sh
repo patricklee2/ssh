@@ -4,8 +4,6 @@ docker stop a-cont
 docker rm a-cont
 
 docker build  -t a-image nossh
-docker stop a-cont
-docker rm a-cont
 docker run -d -P \
     -p 0.0.0.0:32823:2222 \
     --name a-cont \
