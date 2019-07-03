@@ -15,7 +15,8 @@ COPY startup /opt/startup
 COPY hostingstart.html /opt/startup
 
 
-RUN chmod -R +x /opt/startup \
+RUN rm -f /etc/ssh/sshd_config \
+   && chmod -R +x /opt/startup \
    && cd /opt/startup \
    && npm install 
 
@@ -31,7 +32,9 @@ ENV PATH ${PATH}:/home/site/wwwroot
 
 WORKDIR /home/site/wwwroot
 
-RUN apt-get update -y \
+RUN groupadd sshd \
+   && useradd -g sshd -d / sshd \
+   && apt-get update -y \
    && apt-get upgrade -y openssl \
    && cd /etc/ssh \
    && wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz \
@@ -41,7 +44,8 @@ RUN apt-get update -y \
    && make \
    && make install
 
-COPY start_sshd.sh /etc/ssh
+COPY sshd_config /etc/ssh/
+COPY start_sshd.sh /etc/ssh/
 
 VOLUME /etc/ssh
 
