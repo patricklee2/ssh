@@ -10,4 +10,4 @@ docker build -t make-ssh-vol-image make-ssh-vol
 docker run -d -P \
     --name make-ssh-vol-cont \
     --mount type=volume,source=ssh-vol,target=/etc/ssh \
-    b-image
+    make-ssh-vol-image

@@ -7,8 +7,9 @@ docker build  -t a-image nossh
 docker stop a-cont
 docker rm a-cont
 docker run -d -P \
-    --name b-cont \
-    --mount type=volume,source=my-vol,target=/etc/ssh \
-    b-image
+    -p 0.0.0.0:2222:32823 \
+    --name a-cont \
+    --mount type=volume,source=ssh-vol,target=/etc/ssh \
+    a-image
 
-docker exec -it b-cont /etc/ssh/start_sshd.sh
+docker exec -it a-cont /etc/ssh/start_sshd.sh

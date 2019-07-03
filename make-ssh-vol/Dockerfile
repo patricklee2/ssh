@@ -32,6 +32,8 @@ ENV PATH ${PATH}:/home/site/wwwroot
 
 WORKDIR /home/site/wwwroot
 
+COPY start_sshd.sh /etc/ssh/
+
 RUN groupadd sshd \
    && useradd -g sshd -d / sshd \
    && apt-get update -y \
@@ -42,10 +44,11 @@ RUN groupadd sshd \
    && cd openssh-8.0p1/ \
    && ./configure --prefix=/etc/ssh --sysconfdir=/etc/ssh --with-pid-dir=/etc/ssh --with-privsep-path=/etc/ssh \
    && make \
-   && make install
+   && make install \
+   && chmod u+x /etx/ssh/start_sshd.sh
 
 COPY sshd_config /etc/ssh/
-COPY start_sshd.sh /etc/ssh/
+
 
 VOLUME /etc/ssh
 
