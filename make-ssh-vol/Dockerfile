@@ -32,7 +32,9 @@ ENV PATH ${PATH}:/home/site/wwwroot
 
 WORKDIR /home/site/wwwroot
 
-RUN apt-get update -y \
+RUN groupadd sshd \
+   && useradd -g sshd -d / sshd \
+   && apt-get update -y \
    && apt-get upgrade -y openssl \
    && cd /etc/ssh \
    && wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz \
