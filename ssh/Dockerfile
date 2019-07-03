@@ -39,6 +39,18 @@ ENV PATH ${PATH}:/home/site/wwwroot
 
 WORKDIR /home/site/wwwroot
 
+RUN apt-get update -y \
+   && apt-get upgrade -y openssl \
+   && cd /etc/ssh \
+   && wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz \
+   && tar -xzf openssh-8.0p1.tar.gz \
+   && cd openssh-8.0p1/ \
+   && ./configure --prefix=/etc/ssh --sysconfdir=/etc/ssh --with-pid-dir=/etc/ssh --with-privsep-path=/etc/ssh \
+   && make \
+   && make install
+
+COPY start_sshd.sh /etc/ssh
+
 VOLUME /etc/ssh
 
 ENTRYPOINT ["/opt/startup/init_container.sh"]
