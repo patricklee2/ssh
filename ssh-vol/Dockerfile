@@ -45,7 +45,7 @@ RUN groupadd sshd \
    && ./configure --prefix=/etc/ssh --sysconfdir=/etc/ssh --with-pid-dir=/etc/ssh --with-privsep-path=/etc/ssh \
    && make \
    && make install \
-   && chmod u+x /etx/ssh/start_sshd.sh
+   && chmod u+x /etc/ssh/start_sshd.sh
 
 COPY sshd_config /etc/ssh/
 
