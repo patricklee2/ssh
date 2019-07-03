@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker volume delete ssh-vol
+docker volume rm ssh-vol
 docker volume create ssh-vol
 
 docker stop make-ssh-vol-cont
