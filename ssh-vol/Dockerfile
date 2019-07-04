@@ -40,8 +40,9 @@ RUN groupadd sshd \
    && wget -c https://www.openssl.org/source/openssl-1.0.2s.tar.gz \
    && tar -xzf openssl-1.0.2s.tar.gz \
    && cd openssl-1.0.2s/ \
-   && ./configure --libdir=/etc/ssh --openssldir=/etc/ssh --prefix=/etc/ssh \
+   && ./Configure --libdir=/etc/ssh --openssldir=/etc/ssh --prefix=/etc/ssh no-shared linux-x86_64 \
    && make \
+   && make test \
    && make install \
    && cd /etc/ssh \
    && wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz \
