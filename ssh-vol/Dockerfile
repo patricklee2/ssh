@@ -60,7 +60,7 @@ RUN mkdir -p /etc/ssh/openssh \
    && make \
    && make install \
    && chmod u+x /etc/ssh/start_sshd.sh \
-   && chmod u+x ssh_setup.sh
+   && chmod u+x /etc/ssh/ssh_setup.sh
 
 
 
