@@ -48,6 +48,9 @@ RUN mkdir -p /etc/ssh/openssl \
    && make install \
    && PATH=$PATH:/etc/ssh/bin
 
+COPY sshd_config /etc/ssh/
+COPY ssh_setup.sh /etc/ssh/
+
 RUN mkdir -p /etc/ssh/openssh \
    && cd /etc/ssh \
    && wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.9p1.tar.gz \
@@ -56,9 +59,9 @@ RUN mkdir -p /etc/ssh/openssh \
    && ./configure --prefix=/etc/ssh/openssh --sysconfdir=/etc/ssh/openssh --with-pid-dir=/etc/ssh/openssh --with-privsep-path=/etc/ssh/openssh --with-ssl-dir=/etc/ssh/openssl \
    && make \
    && make install \
-   && chmod u+x /etc/ssh/start_sshd.sh
+   && chmod u+x /etc/ssh/start_sshd.sh \
+   && chmod u+x ssh_setup.sh
 
-COPY sshd_config /etc/ssh/
 
 
 VOLUME /etc/ssh
